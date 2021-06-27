@@ -16,7 +16,7 @@ namespace Basket.API.Repositories
 
         public BasketRepository(IDistributedCache cache)
         {
-            _redisCache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _redisCache = cache;
         }
 
         public async Task<ShoppingCart> GetBasket(string userName)
