@@ -10,6 +10,9 @@ services:
   discountdb: 
     image: postgres:9.6.22-alpine
 
+ 
+  pgadmin: 
+    image: dpage/pgadmin4:snapshot
   portainer:
     image: portainer/portainer-ce:alpine
 
@@ -25,7 +28,15 @@ services:
       context: .
       dockerfile: Basket/Basket.API/Dockerfile
 
+  discount.api:
+    image: ${DOCKER_REGISTRY-}discountapi
+    build:
+      context: .
+      dockerfile: Discount/Discount.API/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
   postgresql_data:
+  pgadmin_data:
+

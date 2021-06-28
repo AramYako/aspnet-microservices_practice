@@ -27,7 +27,18 @@ services:
     volumes:
       - postgresql_data:/var/lib/postgresql/data
 
-
+  pgadmin:
+    container_name: pgadmin
+    depends_on:
+      - discountdb
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@aspnetrun.com
+      PGADMIN_DEFAULT_PASSWORD: admin1234
+    restart: always
+    volumes:
+      - pgadmin_data:/root/.pgadmin
   portainer:
     container_name: portainer
     restart: always
@@ -61,3 +72,12 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
+
+  discount.api:
+    container_name: discount.api
+    depends_on: 
+      - discountdb
+    ports:
+      - "8002:80"
+    environment:
+      - DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;
