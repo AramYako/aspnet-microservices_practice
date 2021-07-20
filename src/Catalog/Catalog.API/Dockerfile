@@ -3,10 +3,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["Catalog/Catalog.API/Catalog.API.csproj", "Catalog/Catalog.API/"]
+COPY ["BuildingBlocks/Common.Logging/Common.Logging.csproj", "BuildingBlocks/Common.Logging/"]
 RUN dotnet restore "Catalog/Catalog.API/Catalog.API.csproj"
 COPY . .
 WORKDIR "/src/Catalog/Catalog.API"

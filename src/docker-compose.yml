@@ -57,11 +57,41 @@ services:
       context: .
       dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
 
+
+  aspnetrunbasics:
+    image: ${DOCKER_REGISTRY-}aspnetrunbasics
+    build:
+      context: .
+      dockerfile: WebApps/AspnetRunBasics/Dockerfile
+
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: ApiGateways/ApiGateways/OcelotApiGateway/Dockerfile
+
+  elasticsearch:
+    image: elasticsearch:7.13.3
+
+  kibana:
+    image: kibana:7.13.3
+
+
+  webstatus:
+    image: ${DOCKER_REGISTRY-}webstatus
+    build:
+      context: .
+      dockerfile: WebStatus/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
   postgresql_data:
   pgadmin_data:
+  elasticsearch_data:
+
+
+
 
 
 

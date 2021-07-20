@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ocelot.Cache.CacheManager;
+using Polly;
+using System.Net.Http;
+using Polly.Extensions.Http;
+using Serilog;
 
 namespace OcelotApiGateway
 {

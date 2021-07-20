@@ -1,7 +1,9 @@
+using Common.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +20,15 @@ namespace OcelotApiGateway
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+             
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-            .ConfigureLogging((hostingContext, loggingbuilder) =>
-            {
-                loggingbuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                loggingbuilder.AddConsole();
-                loggingbuilder.AddDebug();
-            })
+
             .ConfigureAppConfiguration((hostingContext, config) => {
                 config.AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json",true, true);
-            });
+            })
+            .UseSerilog(SeriLogger.Configure);
     }
 }

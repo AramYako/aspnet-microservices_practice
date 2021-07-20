@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["Discount/Discount.API/Discount.API.csproj", "Discount/Discount.API/"]
+COPY ["BuildingBlocks/Common.Logging/Common.Logging.csproj", "BuildingBlocks/Common.Logging/"]
 RUN dotnet restore "Discount/Discount.API/Discount.API.csproj"
 COPY . .
 WORKDIR "/src/Discount/Discount.API"
